@@ -1,9 +1,9 @@
-package io.github.joaohsw.dinox.gwt;
+package io.github.joaohsw.DinoZ.gwt;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
-import io.github.joaohsw.dinox.Main;
+import io.github.joaohsw.DinoZ.Main;
 
 /** Launches the GWT application. */
 public class GwtLauncher extends GwtApplication {

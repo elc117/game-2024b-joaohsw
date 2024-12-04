@@ -58,7 +58,7 @@ configure(subprojects) {
 
 subprojects {
   version = '$projectVersion'
-  ext.appName = 'DinoX'
+  ext.appName = 'DinoZ'
   repositories {
     mavenCentral()
     maven { url 'https://s01.oss.sonatype.org' }
@@ -70,4 +70,4 @@ subprojects {
   }
 }
 
-eclipse.project.name = 'DinoX' + '-parent'
+eclipse.project.name = 'DinoZ' + '-parent'
