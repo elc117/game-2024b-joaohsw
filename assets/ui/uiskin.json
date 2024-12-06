@@ -369,8 +369,8 @@ com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
             overFontColor: fontOver, downFontColor: fontDown, disabledFontColor: fontDisabled, pressedOffsetY: -1, pressedOffsetX: 1, imageUp: icon }
     },
     com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
-        default: { font: default, fontColor: font },
-        white: { font: default, fontColor: white }
+        default: { font: default, fontColor: black },
+        white: { font: default, fontColor: black }
     },
     com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
         default: { fontColorUnselected: font, selection: selection, fontColorSelected: fontDown, font: default },

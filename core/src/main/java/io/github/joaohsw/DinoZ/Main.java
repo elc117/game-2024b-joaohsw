@@ -38,7 +38,8 @@ public class Main extends ApplicationAdapter {
     private int dinossauro_atual;
     private Pergunta[] perguntas;
     private String[] especies_dinossauros;
-    private Texture[] texturas_dinossauros;
+    private Texture dino1;
+    private Texture dino2;
 
     @Override
     public void create() {
@@ -50,6 +51,9 @@ public class Main extends ApplicationAdapter {
         lote = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
         textura = new Texture("background.png");
+        dino1 = new Texture("dino.png");
+        dino2 = new Texture("inimigo.png");
+
 
         estado_atual = State.MENU;
         etapa_atual = 1;
@@ -62,27 +66,33 @@ public class Main extends ApplicationAdapter {
         dinossauro_atual = 0;
 
         perguntas = new Pergunta[] {
-            new Pergunta("Qual é a capital da França?", new String[] {"Paris", "Londres", "Berlim", "Madrid"}, 0),
-            new Pergunta("Qual é a capital da Alemanha?", new String[] {"Paris", "Londres", "Berlim", "Madrid"}, 2),
-            new Pergunta("Qual é a capital da Espanha?", new String[] {"Paris", "Londres", "Berlim", "Madrid"}, 3)
+            new Pergunta("Em qual estado brasileiro está localizado o Geoparque Quarta Colônia?", new String[] {"Rio Grande do Sul", "Santa Catarina", "Paraná", "Minas Gerais"}, 0),
+            new Pergunta("Qual município é considerado a sede do Geoparque Quarta Colônia?", new String[] {"Santa Maria", "São João do Polêsine", "Restinga Sêca", "Faxinal do Soturno"}, 1),
+            new Pergunta("Qual é um dos principais fósseis encontrados no Geoparque Quarta Colônia?", new String[] {"Dinossauros", "Tubarões pré-históricos", "Fósseis de dicinodontes", "Fósseis de plantas"}, 2),
+            new Pergunta("O Geoparque Caçapava do Sul é famoso por qual tipo de formação geológica?", new String[] {"Montanhas de granito", "Cânions", "Cavernas de calcário", "Dunas de areia"}, 0),
+            new Pergunta("Qual é o significado de um território ser reconhecido como Geoparque?", new String[] {"Área para mineração intensiva", "Preservação geológica e desenvolvimento sustentável", "Uso exclusivo para turismo", "Exploração de combustíveis fósseis"}, 1),
+            new Pergunta("Quantos municípios fazem parte do Geoparque Quarta Colônia?", new String[] {"5", "7", "9", "11"}, 2),
+            new Pergunta("Qual é um dos objetivos principais dos geoparques?", new String[] {"Preservar espécies ameaçadas", "Educação ambiental e valorização cultural", "Explorar recursos naturais", "Expandir áreas urbanas"}, 1),
+            new Pergunta("O Geoparque Quarta Colônia possui destaque por qual característica natural?", new String[] {"Cachoeiras e matas nativas", "Dunas costeiras", "Corais fossilizados", "Cavernas subterrâneas"}, 0),
+            new Pergunta("O Geoparque Caçapava do Sul é conhecido pela formação rochosa chamada:", new String[] {"Pedra do Segredo", "Morro do Diabo", "Cânion Itaimbezinho", "Gruta Azul"}, 0),
+            new Pergunta("Qual é o órgão responsável por reconhecer e apoiar os geoparques no mundo?", new String[] {"UNESCO", "WWF", "Greenpeace", "IBAMA"}, 0),
+            new Pergunta("Qual é uma das principais atividades turísticas promovidas no Geoparque Quarta Colônia?", new String[] {"Caminhadas ecológicas", "Pesca esportiva", "Esportes radicais", "Observação de aves"}, 0),
+            new Pergunta("Qual é o principal objetivo da rede de geoparques criada pela UNESCO?", new String[] {"Proteger patrimônios culturais e geológicos", "Expandir áreas urbanas próximas a geoparques", "Promover agricultura intensiva", "Construir infraestruturas para mineração"}, 0),
+            new Pergunta("O Geoparque Caçapava do Sul é parte de qual importante cadeia de montanhas brasileira?", new String[] {"Serra do Mar", "Serra Geral", "Planalto Meridional", "Serra Gaúcha"}, 1),
+            new Pergunta("A Pedra do Segredo, formação famosa no Geoparque Caçapava do Sul, é composta principalmente de qual rocha?", new String[] {"Granito", "Basalto", "Arenito", "Calcário"}, 0),
+            new Pergunta("Qual é a importância da paleontologia no contexto do Geoparque Quarta Colônia?", new String[] {"Identificar novas espécies de plantas", "Estudar fósseis de animais pré-históricos", "Explorar recursos minerais para indústria", "Preservar formações rochosas raras"}, 1),
+            new Pergunta("O Geoparque Quarta Colônia está localizado em uma área com grande diversidade de qual recurso natural?", new String[] {"Água doce", "Minerais preciosos", "Flora tropical", "Corais"}, 0),
+            new Pergunta("Quais são as formações geológicas mais comuns no Geoparque Caçapava do Sul?", new String[] {"Granitos e quartzitos", "Calcários e dolomitos", "Basaltos e diabásios", "Arenitos e conglomerados"}, 0),
+            new Pergunta("O Geoparque Quarta Colônia está integrado a um projeto de pesquisa de qual universidade brasileira?", new String[] {"UFSM", "UFRGS", "PUCRS", "UNISINOS"}, 0),
+            new Pergunta("Qual rio importante corta a região do Geoparque Quarta Colônia?", new String[] {"Rio Jacuí", "Rio Uruguai", "Rio Paraná", "Rio Taquari"}, 0),
+            new Pergunta("O Geoparque Caçapava do Sul está inserido em qual bioma brasileiro?", new String[] {"Pampa", "Mata Atlântica", "Cerrado", "Amazônia"}, 0)
         };
+        
 
         especies_dinossauros = new String[] {
             "Staurikosaurus pricei", "Prestosuchus chiniquensis", "Gnathovorax cabreirai",
             "Unaysaurus tolentinoi", "Saturnalia tupiniquim", "Sacisaurus agudoensis",
             "Pampadromaeus barberenai", "Bagualosaurus agudoensis", "Stahleckeria potens"
-        };
-
-        texturas_dinossauros = new Texture[] {
-            new Texture("assets/staurikosauruspricei.png"),
-            new Texture("assets/prestosuchuschiniquensis.png"),
-            new Texture("assets/gnathovoraxcabreirai.png"),
-            new Texture("assets/unaysaurustolentinoi.png"),
-            new Texture("assets/saturnaliatupiniquim.png"),
-            new Texture("assets/sacisaurusagudoensis.png"),
-            new Texture("assets/pampadromaeusbarberenai.png"),
-            new Texture("assets/bagualosaurusagudoensis.png"),
-            new Texture("assets/stahleckeriapotens.png")
         };
 
         criarMenu();
@@ -186,27 +196,32 @@ public class Main extends ApplicationAdapter {
 
         Table tabela = new Table();
         tabela.setFillParent(true);
+        tabela.bottom();
         palco.addActor(tabela);
-
-        Label titulo = new Label("Combate!", skin);
-        titulo.setFontScale(6);
-
-        Label vida = new Label("Vida: Jogador " + vida_jogador + " - Adversário " + vida_adversario, skin);
-        vida.setFontScale(4);
 
         Pergunta pergunta = perguntas[pergunta_atual];
         Label perguntaLabel = new Label("Pergunta: " + pergunta.texto, skin);
-        perguntaLabel.setFontScale(4);
+        perguntaLabel.setFontScale(2);
 
         TextButton resposta1 = new TextButton(pergunta.opcoes[0], skin);
         TextButton resposta2 = new TextButton(pergunta.opcoes[1], skin);
         TextButton resposta3 = new TextButton(pergunta.opcoes[2], skin);
         TextButton resposta4 = new TextButton(pergunta.opcoes[3], skin);
 
-        resposta1.getLabel().setFontScale(3f);
-        resposta2.getLabel().setFontScale(3f);
-        resposta3.getLabel().setFontScale(3f);
-        resposta4.getLabel().setFontScale(3f);
+        resposta1.getLabel().setFontScale(2f);
+        resposta2.getLabel().setFontScale(2f);
+        resposta3.getLabel().setFontScale(2f);
+        resposta4.getLabel().setFontScale(2f);
+
+        resposta1.getStyle().font.getData().setScale(1.5f);
+        resposta2.getStyle().font.getData().setScale(1.5f);
+        resposta3.getStyle().font.getData().setScale(1.5f);
+        resposta4.getStyle().font.getData().setScale(1.5f);
+
+        resposta1.setSize(500, 50);
+        resposta2.setSize(500, 50);
+        resposta3.setSize(500, 50);
+        resposta4.setSize(500, 50);
 
         ClickListener listener = new ClickListener() {
             @Override
@@ -248,55 +263,49 @@ public class Main extends ApplicationAdapter {
         resposta3.addListener(listener);
         resposta4.addListener(listener);
 
-        tabela.add(titulo).padBottom(40).row();
-        tabela.add(vida).padBottom(20).row();
         tabela.add(perguntaLabel).padBottom(20).row();
-        tabela.add(resposta1).fillX().uniformX().padBottom(10).row();
-        tabela.add(resposta2).fillX().uniformX().padBottom(10).row();
-        tabela.add(resposta3).fillX().uniformX().padBottom(10).row();
-        tabela.add(resposta4).fillX().uniformX();
+        Table botoesTabela = new Table();
+        botoesTabela.add(resposta1).size(500, 50).padBottom(10).padRight(10);
+        botoesTabela.add(resposta2).size(500, 50).padBottom(10).row();
+        botoesTabela.add(resposta3).size(500, 50).padBottom(10).padRight(10);
+        botoesTabela.add(resposta4).size(500, 50).padBottom(10);
+        tabela.add(botoesTabela).padBottom(20).row();
     }
 
     @Override
     public void render() {
-        ScreenUtils.clear(0f, 0f, 0f, 1f);
+        ScreenUtils.clear(0.9f, 0.9f, 0.9f, 1f); 
 
         if (estado_atual == State.COMBAT) {
             lote.begin();
-            lote.draw(textura, 0, 0, 1280, 720);
-
-            // Desenha o dinossauro do jogador
-            Texture texturaJogador = texturas_dinossauros[getIndexDinossauro(dinossauros_selecionados[dinossauro_atual])];
-            lote.draw(texturaJogador, 200, 300, 200, 200);
-
-            // Desenha o dinossauro adversário
-            Texture texturaAdversario = texturas_dinossauros[getIndexDinossauro(dinossauros_adversarios[adversario_atual])];
-            lote.draw(texturaAdversario, 880, 300, 200, 200);
-
-            lote.end();
+            lote.draw(textura, 0, 0);
 
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+
             shapeRenderer.setColor(0, 1, 0, 1);
-            shapeRenderer.rect(200, 650, vida_jogador * 2, 20);
+            shapeRenderer.rect(275, 470, vida_jogador * 2, 20);
+
+            shapeRenderer.setColor(0, 0, 1, 1);
+            Texture textura_jogador = dino1;
+            lote.draw(textura_jogador, 230, 230);
 
             shapeRenderer.setColor(1, 0, 0, 1);
-            shapeRenderer.rect(880, 650, vida_adversario * 2, 20);
+            shapeRenderer.rect(760, 590, vida_adversario * 2, 20);
 
+            shapeRenderer.setColor(1, 0, 0, 1);
+            Texture textura_adversario = dino2;
+            lote.draw(textura_adversario, 770, 420, 180, 180);
+
+            lote.end();
             shapeRenderer.end();
+
         }
 
         palco.act(Gdx.graphics.getDeltaTime());
         palco.draw();
     }
 
-    private int getIndexDinossauro(String nome) {
-        for (int i = 0; i < especies_dinossauros.length; i++) {
-            if (especies_dinossauros[i].equals(nome)) {
-                return i;
-            }
-        }
-        return -1; // Caso não encontre o dinossauro
-    }
+
 
     private void criarTelaVitoria() {
         palco.clear();
@@ -373,9 +382,6 @@ public class Main extends ApplicationAdapter {
         lote.dispose();
         shapeRenderer.dispose();
         textura.dispose();
-        for (Texture textura : texturas_dinossauros) {
-            textura.dispose();
-        }
     }
 
     private static class Pergunta {
