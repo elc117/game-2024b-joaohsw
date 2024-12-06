@@ -37,6 +37,8 @@ public class Main extends ApplicationAdapter {
     private int adversario_atual;
     private int dinossauro_atual;
     private Pergunta[] perguntas;
+    private String[] especies_dinossauros;
+    private Texture[] texturas_dinossauros;
 
     @Override
     public void create() {
@@ -60,9 +62,27 @@ public class Main extends ApplicationAdapter {
         dinossauro_atual = 0;
 
         perguntas = new Pergunta[] {
-            new Pergunta("Pergunta teste resposta 0", new String[] {"0", "1", "2", "3"}, 0),
-            new Pergunta("Segunda pergunta teste resposta 2", new String[] {"0", "1", "2", "3"}, 2),
-            new Pergunta("Terceira pergunta teste resposta 3", new String[] {"0", "1", "2", "3"}, 3)
+            new Pergunta("Qual é a capital da França?", new String[] {"Paris", "Londres", "Berlim", "Madrid"}, 0),
+            new Pergunta("Qual é a capital da Alemanha?", new String[] {"Paris", "Londres", "Berlim", "Madrid"}, 2),
+            new Pergunta("Qual é a capital da Espanha?", new String[] {"Paris", "Londres", "Berlim", "Madrid"}, 3)
+        };
+
+        especies_dinossauros = new String[] {
+            "Staurikosaurus pricei", "Prestosuchus chiniquensis", "Gnathovorax cabreirai",
+            "Unaysaurus tolentinoi", "Saturnalia tupiniquim", "Sacisaurus agudoensis",
+            "Pampadromaeus barberenai", "Bagualosaurus agudoensis", "Stahleckeria potens"
+        };
+
+        texturas_dinossauros = new Texture[] {
+            new Texture("assets/staurikosauruspricei.png"),
+            new Texture("assets/prestosuchuschiniquensis.png"),
+            new Texture("assets/gnathovoraxcabreirai.png"),
+            new Texture("assets/unaysaurustolentinoi.png"),
+            new Texture("assets/saturnaliatupiniquim.png"),
+            new Texture("assets/sacisaurusagudoensis.png"),
+            new Texture("assets/pampadromaeusbarberenai.png"),
+            new Texture("assets/bagualosaurusagudoensis.png"),
+            new Texture("assets/stahleckeriapotens.png")
         };
 
         criarMenu();
@@ -114,9 +134,13 @@ public class Main extends ApplicationAdapter {
         Label titulo = new Label("Selecione seu dinossauro - Etapa " + etapa_atual, skin);
         titulo.setFontScale(4);
 
-        TextButton personagem1 = new TextButton("Dino " + (etapa_atual * 3 - 2), skin);
-        TextButton personagem2 = new TextButton("Dino " + (etapa_atual * 3 - 1), skin);
-        TextButton personagem3 = new TextButton("Dino " + (etapa_atual * 3), skin);
+        int index1 = (etapa_atual - 1) * 3;
+        int index2 = index1 + 1;
+        int index3 = index1 + 2;
+
+        TextButton personagem1 = new TextButton(especies_dinossauros[index1], skin);
+        TextButton personagem2 = new TextButton(especies_dinossauros[index2], skin);
+        TextButton personagem3 = new TextButton(especies_dinossauros[index3], skin);
 
         personagem1.getLabel().setFontScale(3f);
         personagem2.getLabel().setFontScale(3f);
@@ -151,7 +175,7 @@ public class Main extends ApplicationAdapter {
     private void selecionarAdversarios() {
         Random random = new Random();
         for (int i = 0; i < 3; i++) {
-            dinossauros_adversarios[i] = "Adversário " + (random.nextInt(9) + 1);
+            dinossauros_adversarios[i] = especies_dinossauros[random.nextInt(especies_dinossauros.length)];
         }
         adversario_atual = 0;
         vida_adversario = 100;
@@ -233,6 +257,47 @@ public class Main extends ApplicationAdapter {
         tabela.add(resposta4).fillX().uniformX();
     }
 
+    @Override
+    public void render() {
+        ScreenUtils.clear(0f, 0f, 0f, 1f);
+
+        if (estado_atual == State.COMBAT) {
+            lote.begin();
+            lote.draw(textura, 0, 0, 1280, 720);
+
+            // Desenha o dinossauro do jogador
+            Texture texturaJogador = texturas_dinossauros[getIndexDinossauro(dinossauros_selecionados[dinossauro_atual])];
+            lote.draw(texturaJogador, 200, 300, 200, 200);
+
+            // Desenha o dinossauro adversário
+            Texture texturaAdversario = texturas_dinossauros[getIndexDinossauro(dinossauros_adversarios[adversario_atual])];
+            lote.draw(texturaAdversario, 880, 300, 200, 200);
+
+            lote.end();
+
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            shapeRenderer.setColor(0, 1, 0, 1);
+            shapeRenderer.rect(200, 650, vida_jogador * 2, 20);
+
+            shapeRenderer.setColor(1, 0, 0, 1);
+            shapeRenderer.rect(880, 650, vida_adversario * 2, 20);
+
+            shapeRenderer.end();
+        }
+
+        palco.act(Gdx.graphics.getDeltaTime());
+        palco.draw();
+    }
+
+    private int getIndexDinossauro(String nome) {
+        for (int i = 0; i < especies_dinossauros.length; i++) {
+            if (especies_dinossauros[i].equals(nome)) {
+                return i;
+            }
+        }
+        return -1; // Caso não encontre o dinossauro
+    }
+
     private void criarTelaVitoria() {
         palco.clear();
 
@@ -297,34 +362,6 @@ public class Main extends ApplicationAdapter {
     }
 
     @Override
-    public void render() {
-        ScreenUtils.clear(0f, 0f, 0f, 1f);
-
-        if (estado_atual == State.COMBAT) {
-            lote.begin();
-            lote.draw(textura, 0, 0, 1280, 720);
-            lote.end();
-
-            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-            shapeRenderer.setColor(0, 0, 1, 1);
-            shapeRenderer.circle(300, 360, 50);
-            shapeRenderer.setColor(1, 0, 0, 1);
-            shapeRenderer.circle(980, 360, 50);
-
-            shapeRenderer.setColor(0, 1, 0, 1);
-            shapeRenderer.rect(200, 650, vida_jogador * 2, 20);
-
-            shapeRenderer.setColor(1, 0, 0, 1);
-            shapeRenderer.rect(880, 650, vida_adversario * 2, 20);
-
-            shapeRenderer.end();
-        }
-
-        palco.act(Gdx.graphics.getDeltaTime());
-        palco.draw();
-    }
-
-    @Override
     public void resize(int largura, int altura) {
         palco.getViewport().update(largura, altura);
     }
@@ -336,6 +373,9 @@ public class Main extends ApplicationAdapter {
         lote.dispose();
         shapeRenderer.dispose();
         textura.dispose();
+        for (Texture textura : texturas_dinossauros) {
+            textura.dispose();
+        }
     }
 
     private static class Pergunta {
