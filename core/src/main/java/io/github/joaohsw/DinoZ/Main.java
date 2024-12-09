@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.audio.Music;
 
 import java.util.Random;
 
@@ -40,6 +41,11 @@ public class Main extends ApplicationAdapter {
     private String[] especies_dinossauros;
     private Texture dino1;
     private Texture dino2;
+    private Texture dino3;
+    private Texture dino4;
+    private Texture dino5;
+    private Texture dino6;
+    private Music music_background;
 
     @Override
     public void create() {
@@ -53,6 +59,16 @@ public class Main extends ApplicationAdapter {
         textura = new Texture("background.png");
         dino1 = new Texture("dino.png");
         dino2 = new Texture("inimigo.png");
+        dino3 = new Texture("dino2.png");
+        dino4 = new Texture("inimigo2.png");
+        dino5 = new Texture("dino3.png");
+        dino6 = new Texture("inimigo3.png");
+
+
+        music_background = Gdx.audio.newMusic(Gdx.files.internal("battlemusic.mp3"));
+        music_background.setLooping(true);
+        music_background.setVolume(0.1f);
+        music_background.play();
 
 
         estado_atual = State.MENU;
@@ -72,20 +88,20 @@ public class Main extends ApplicationAdapter {
             new Pergunta("O Geoparque Caçapava do Sul é famoso por qual tipo de formação geológica?", new String[] {"Montanhas de granito", "Cânions", "Cavernas de calcário", "Dunas de areia"}, 0),
             new Pergunta("Qual é o significado de um território ser reconhecido como Geoparque?", new String[] {"Área para mineração intensiva", "Preservação geológica e desenvolvimento sustentável", "Uso exclusivo para turismo", "Exploração de combustíveis fósseis"}, 1),
             new Pergunta("Quantos municípios fazem parte do Geoparque Quarta Colônia?", new String[] {"5", "7", "9", "11"}, 2),
-            new Pergunta("Qual é um dos objetivos principais dos geoparques?", new String[] {"Preservar espécies ameaçadas", "Educação ambiental e valorização cultural", "Explorar recursos naturais", "Expandir áreas urbanas"}, 1),
-            new Pergunta("O Geoparque Quarta Colônia possui destaque por qual característica natural?", new String[] {"Cachoeiras e matas nativas", "Dunas costeiras", "Corais fossilizados", "Cavernas subterrâneas"}, 0),
-            new Pergunta("O Geoparque Caçapava do Sul é conhecido pela formação rochosa chamada:", new String[] {"Pedra do Segredo", "Morro do Diabo", "Cânion Itaimbezinho", "Gruta Azul"}, 0),
+            new Pergunta("Qual é um dos objetivos principais dos geoparques?", new String[] {"Expandir áreas urbanas", "Educação ambiental e valorização cultural", "Explorar recursos naturais", "Preservar espécies ameaçadas"}, 3),
+            new Pergunta("O Geoparque Quarta Colônia possui destaque por qual característica natural?", new String[] {"Cavernas subterrâneas", "Dunas costeiras", "Corais fossilizados", "Cachoeiras e matas nativas"}, 3),
+            new Pergunta("O Geoparque Caçapava do Sul é conhecido pela formação rochosa chamada:", new String[] {"Cânion do Itaibezinho", "Morro do Diabo", "Pedra do Segredo", "Gruta Azul"}, 2),
             new Pergunta("Qual é o órgão responsável por reconhecer e apoiar os geoparques no mundo?", new String[] {"UNESCO", "WWF", "Greenpeace", "IBAMA"}, 0),
-            new Pergunta("Qual é uma das principais atividades turísticas promovidas no Geoparque Quarta Colônia?", new String[] {"Caminhadas ecológicas", "Pesca esportiva", "Esportes radicais", "Observação de aves"}, 0),
-            new Pergunta("Qual é o principal objetivo da rede de geoparques criada pela UNESCO?", new String[] {"Proteger patrimônios culturais e geológicos", "Expandir áreas urbanas próximas a geoparques", "Promover agricultura intensiva", "Construir infraestruturas para mineração"}, 0),
+            new Pergunta("Qual é uma das principais atividades turísticas promovidas no Geoparque Quarta Colônia?", new String[] {"Pesca esportiva", "Caminhadas ecológicas", "Esportes radicais", "Observação de aves"}, 1),
+            new Pergunta("Qual é o principal objetivo da rede de geoparques criada pela UNESCO?", new String[] {"Construir infraestruturas para mineração", "Expandir áreas urbanas próximas a geoparques", "Promover agricultura intensiva", "Proteger patrimônios culturais e geológicos"}, 3),
             new Pergunta("O Geoparque Caçapava do Sul é parte de qual importante cadeia de montanhas brasileira?", new String[] {"Serra do Mar", "Serra Geral", "Planalto Meridional", "Serra Gaúcha"}, 1),
-            new Pergunta("A Pedra do Segredo, formação famosa no Geoparque Caçapava do Sul, é composta principalmente de qual rocha?", new String[] {"Granito", "Basalto", "Arenito", "Calcário"}, 0),
+            new Pergunta("A Pedra do Segredo, formação famosa no Geoparque Caçapava do Sul, é composta principalmente de qual rocha?", new String[] {"Arenito", "Basalto", "Granito", "Calcário"}, 2),
             new Pergunta("Qual é a importância da paleontologia no contexto do Geoparque Quarta Colônia?", new String[] {"Identificar novas espécies de plantas", "Estudar fósseis de animais pré-históricos", "Explorar recursos minerais para indústria", "Preservar formações rochosas raras"}, 1),
             new Pergunta("O Geoparque Quarta Colônia está localizado em uma área com grande diversidade de qual recurso natural?", new String[] {"Água doce", "Minerais preciosos", "Flora tropical", "Corais"}, 0),
             new Pergunta("Quais são as formações geológicas mais comuns no Geoparque Caçapava do Sul?", new String[] {"Granitos e quartzitos", "Calcários e dolomitos", "Basaltos e diabásios", "Arenitos e conglomerados"}, 0),
-            new Pergunta("O Geoparque Quarta Colônia está integrado a um projeto de pesquisa de qual universidade brasileira?", new String[] {"UFSM", "UFRGS", "PUCRS", "UNISINOS"}, 0),
-            new Pergunta("Qual rio importante corta a região do Geoparque Quarta Colônia?", new String[] {"Rio Jacuí", "Rio Uruguai", "Rio Paraná", "Rio Taquari"}, 0),
-            new Pergunta("O Geoparque Caçapava do Sul está inserido em qual bioma brasileiro?", new String[] {"Pampa", "Mata Atlântica", "Cerrado", "Amazônia"}, 0)
+            new Pergunta("O Geoparque Quarta Colônia está integrado a um projeto de pesquisa de qual universidade brasileira?", new String[] {"PUCRS", "UFRGS", "UFSM", "UNISINOS"}, 2),
+            new Pergunta("Qual rio importante corta a região do Geoparque Quarta Colônia?", new String[] {"Rio Taquari", "Rio Uruguai", "Rio Íjui", "Rio Jacuí"}, 3),
+            new Pergunta("O Geoparque Caçapava do Sul está inserido em qual bioma brasileiro?", new String[] {"Amazônia", "Mata Atlântica", "Cerrado", "Pampa"}, 3)
         };
         
 
@@ -141,7 +157,7 @@ public class Main extends ApplicationAdapter {
         tabela.setFillParent(true);
         palco.addActor(tabela);
 
-        Label titulo = new Label("Selecione seu dinossauro - Etapa " + etapa_atual, skin);
+        Label titulo = new Label("Selecione seu dinossauro", skin);
         titulo.setFontScale(4);
 
         int index1 = (etapa_atual - 1) * 3;
@@ -208,10 +224,10 @@ public class Main extends ApplicationAdapter {
         TextButton resposta3 = new TextButton(pergunta.opcoes[2], skin);
         TextButton resposta4 = new TextButton(pergunta.opcoes[3], skin);
 
-        resposta1.getLabel().setFontScale(2f);
-        resposta2.getLabel().setFontScale(2f);
-        resposta3.getLabel().setFontScale(2f);
-        resposta4.getLabel().setFontScale(2f);
+        resposta1.getLabel().setFontScale(1.5f);
+        resposta2.getLabel().setFontScale(1.5f);
+        resposta3.getLabel().setFontScale(1.5f);
+        resposta4.getLabel().setFontScale(1.5f);
 
         resposta1.getStyle().font.getData().setScale(1.5f);
         resposta2.getStyle().font.getData().setScale(1.5f);
@@ -228,9 +244,9 @@ public class Main extends ApplicationAdapter {
             public void clicked(InputEvent event, float x, float y) {
                 TextButton botao = (TextButton) event.getListenerActor();
                 if (botao.getText().toString().equals(pergunta.opcoes[pergunta.resposta_correta])) {
-                    vida_adversario -= 10;
+                    vida_adversario -= 20;
                 } else {
-                    vida_jogador -= 10;
+                    vida_jogador -= 20;
                 }
 
                 if (vida_jogador <= 0) {
@@ -270,10 +286,15 @@ public class Main extends ApplicationAdapter {
         botoesTabela.add(resposta3).size(500, 50).padBottom(10).padRight(10);
         botoesTabela.add(resposta4).size(500, 50).padBottom(10);
         tabela.add(botoesTabela).padBottom(20).row();
+
+
+
+        
     }
 
     @Override
     public void render() {
+
         ScreenUtils.clear(0.9f, 0.9f, 0.9f, 1f); 
 
         if (estado_atual == State.COMBAT) {
@@ -286,15 +307,19 @@ public class Main extends ApplicationAdapter {
             shapeRenderer.rect(275, 470, vida_jogador * 2, 20);
 
             shapeRenderer.setColor(0, 0, 1, 1);
-            Texture textura_jogador = dino1;
-            lote.draw(textura_jogador, 230, 230);
+            Texture textura_jogador[] = {dino1, dino3, dino5};
+            if(dinossauro_atual == 0) lote.draw(textura_jogador[0], 230, 230);
+            if(dinossauro_atual == 1) lote.draw(textura_jogador[1], 230, 230);
+            if(dinossauro_atual == 2) lote.draw(textura_jogador[2], 230, 230);
 
             shapeRenderer.setColor(1, 0, 0, 1);
             shapeRenderer.rect(760, 590, vida_adversario * 2, 20);
 
             shapeRenderer.setColor(1, 0, 0, 1);
-            Texture textura_adversario = dino2;
-            lote.draw(textura_adversario, 770, 420, 180, 180);
+            Texture textura_adversario[] = {dino2, dino4, dino6};
+            if(adversario_atual == 0) lote.draw(textura_adversario[0], 770, 420, 180, 180);
+            if(adversario_atual == 1) lote.draw(textura_adversario[1], 770, 420, 180, 180);
+            if(adversario_atual == 2) lote.draw(textura_adversario[2], 770, 420, 180, 180);
 
             lote.end();
             shapeRenderer.end();
