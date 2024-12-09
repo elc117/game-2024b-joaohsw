@@ -19,6 +19,7 @@ import com.badlogic.gdx.audio.Music;
 import java.util.Random;
 
 public class Main extends ApplicationAdapter {
+    
     private enum State {
         MENU, CHARACTER_SELECTION, COMBAT, VICTORY, DEFEAT
     }
@@ -101,7 +102,17 @@ public class Main extends ApplicationAdapter {
             new Pergunta("Quais são as formações geológicas mais comuns no Geoparque Caçapava do Sul?", new String[] {"Granitos e quartzitos", "Calcários e dolomitos", "Basaltos e diabásios", "Arenitos e conglomerados"}, 0),
             new Pergunta("O Geoparque Quarta Colônia está integrado a um projeto de pesquisa de qual universidade brasileira?", new String[] {"PUCRS", "UFRGS", "UFSM", "UNISINOS"}, 2),
             new Pergunta("Qual rio importante corta a região do Geoparque Quarta Colônia?", new String[] {"Rio Taquari", "Rio Uruguai", "Rio Íjui", "Rio Jacuí"}, 3),
-            new Pergunta("O Geoparque Caçapava do Sul está inserido em qual bioma brasileiro?", new String[] {"Amazônia", "Mata Atlântica", "Cerrado", "Pampa"}, 3)
+            new Pergunta("O Geoparque Caçapava do Sul está inserido em qual bioma brasileiro?", new String[] {"Amazônia", "Mata Atlântica", "Cerrado", "Pampa"}, 3),
+            new Pergunta("Qual é o período geológico associado aos fósseis encontrados no Geoparque Quarta Colônia?", new String[] {"Triássico", "Jurássico", "Cretáceo", "Devoniano"}, 0),
+            new Pergunta("Qual município do Geoparque Quarta Colônia é famoso por suas cachoeiras?", new String[] {"Itaara", "Nova Palma", "Silveira Martins", "Agudo"}, 2),
+            new Pergunta("Quais formações geológicas são características do Geoparque Caçapava do Sul?", new String[] {"Granitos e mármores", "Arenitos e quartzitos", "Calcários e dolomitos", "Basaltos e riolitos"}, 1),
+            new Pergunta("Qual é o papel das comunidades locais nos geoparques?", new String[] {"Explorar recursos naturais", "Preservar e divulgar o patrimônio", "Construir infraestrutura turística", "Administrar os territórios"}, 1),
+            new Pergunta("O Geoparque Caçapava do Sul pertence a qual região do Rio Grande do Sul?", new String[] {"Região Central", "Campanha Gaúcha", "Vale dos Sinos", "Fronteira Oeste"}, 1),
+            new Pergunta("Qual é o nome do evento anual que promove os geoparques e a geoconservação?", new String[] {"Semana da Terra", "Dia Internacional dos Geoparques", "Festival da Geodiversidade", "Geoparque Global Day"}, 0),
+            new Pergunta("Qual espécie fóssil é destaque nos estudos paleontológicos da Quarta Colônia?", new String[] {"Dinossauros herbívoros", "Dicinodontes", "Tubarões pré-históricos", "Pterossauros"}, 1),
+            new Pergunta("Quais atividades de educação ambiental são promovidas no Geoparque Quarta Colônia?", new String[] {"Workshops sobre fósseis", "Corridas de aventura", "Pesquisas de campo exclusivas", "Trilhas em áreas restritas"}, 0),
+            new Pergunta("O Geoparque Caçapava do Sul possui qual título em relação ao Rio Grande do Sul?", new String[] {"Capital Gaúcha do Basalto", "Capital Gaúcha dos Minerais", "Capital Gaúcha do Granito", "Capital Gaúcha do Quartzito"}, 3),
+            new Pergunta("Os geoparques são reconhecidos por qual tipo de turismo?", new String[] {"Turismo sustentável", "Turismo de aventura", "Turismo religioso", "Turismo urbano"}, 0)        
         };
         
 
@@ -217,7 +228,7 @@ public class Main extends ApplicationAdapter {
 
         Pergunta pergunta = perguntas[pergunta_atual];
         Label perguntaLabel = new Label("Pergunta: " + pergunta.texto, skin);
-        perguntaLabel.setFontScale(2);
+        perguntaLabel.setFontScale(1.65f);
 
         TextButton resposta1 = new TextButton(pergunta.opcoes[0], skin);
         TextButton resposta2 = new TextButton(pergunta.opcoes[1], skin);
@@ -253,6 +264,7 @@ public class Main extends ApplicationAdapter {
                     dinossauro_atual++;
                     if (dinossauro_atual < 3) {
                         vida_jogador = 100;
+                        pergunta_atual = (pergunta_atual + 1) % perguntas.length;
                         criarTelaCombate();
                     } else {
                         estado_atual = State.DEFEAT;
@@ -262,6 +274,7 @@ public class Main extends ApplicationAdapter {
                     adversario_atual++;
                     if (adversario_atual < 3) {
                         vida_adversario = 100;
+                        pergunta_atual = (pergunta_atual + 1) % perguntas.length;
                         criarTelaCombate();
                     } else {
                         estado_atual = State.VICTORY;
@@ -286,10 +299,7 @@ public class Main extends ApplicationAdapter {
         botoesTabela.add(resposta3).size(500, 50).padBottom(10).padRight(10);
         botoesTabela.add(resposta4).size(500, 50).padBottom(10);
         tabela.add(botoesTabela).padBottom(20).row();
-
-
-
-        
+    
     }
 
     @Override
@@ -309,8 +319,8 @@ public class Main extends ApplicationAdapter {
             shapeRenderer.setColor(0, 0, 1, 1);
             Texture textura_jogador[] = {dino1, dino3, dino5};
             if(dinossauro_atual == 0) lote.draw(textura_jogador[0], 230, 230);
-            if(dinossauro_atual == 1) lote.draw(textura_jogador[1], 230, 230);
-            if(dinossauro_atual == 2) lote.draw(textura_jogador[2], 230, 230);
+            if(dinossauro_atual == 1) lote.draw(textura_jogador[1], 230, 280);
+            if(dinossauro_atual == 2) lote.draw(textura_jogador[2], 280, 280, 180, 180);
 
             shapeRenderer.setColor(1, 0, 0, 1);
             shapeRenderer.rect(760, 590, vida_adversario * 2, 20);
@@ -318,8 +328,8 @@ public class Main extends ApplicationAdapter {
             shapeRenderer.setColor(1, 0, 0, 1);
             Texture textura_adversario[] = {dino2, dino4, dino6};
             if(adversario_atual == 0) lote.draw(textura_adversario[0], 770, 420, 180, 180);
-            if(adversario_atual == 1) lote.draw(textura_adversario[1], 770, 420, 180, 180);
-            if(adversario_atual == 2) lote.draw(textura_adversario[2], 770, 420, 180, 180);
+            if(adversario_atual == 1) lote.draw(textura_adversario[1], 770, 420, 150, 150);
+            if(adversario_atual == 2) lote.draw(textura_adversario[2], 770, 400, 190, 190);
 
             lote.end();
             shapeRenderer.end();
