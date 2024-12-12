@@ -8,8 +8,8 @@ Nesse projeto final da disciplina de paradigmas de programação foi desenvolvid
 ## Processo de desenvolvimento
 
 Inicialmente tive certo receio para decidir o tema do meu jogo, pois não queria fazer algo simplório nem tentar fazer demais e me complicar. Acabei chegando na ideia de desenvolver um jogo no estilo "Pokémon" que encaixa bem com a temática dos Geoparques de Caçapava do Sul e da Quarta Colônia. Após o fim do "processo criativo" comecei a testar algumas ideias com a libGDX e logo percebi que seria um processo muito mais agradável do que a experiência que eu tive com a biblioteca de C Allegro. \
-Os *primeiros 2 commits* representam apenas a instalação da libGDX, já no *3º commit* comecei o desenvolvimento do jogo adicionando um menu com botões "Jogar" e "Sair" funcionais, além de adicionar a imagem que viria a ser o plano de fundo do combate do jogo. Nessa primeira versão ao invés de basear o jogo em 5 possíveis estados como é o caso da versão final, fiz apenas um estado que seria `jogo_iniciado`. \
-No *4º commit* adicionei a lógica básica do jogo. Ela sofreu apenas pequenas modificações desse ponto até a versão final. 
+Os **primeiros 2 commits** representam apenas a instalação da libGDX, já no **3º commit** comecei o desenvolvimento do jogo adicionando um menu com botões "Jogar" e "Sair" funcionais, além de adicionar a imagem que viria a ser o plano de fundo do combate do jogo. Nessa primeira versão ao invés de basear o jogo em 5 possíveis estados como é o caso da versão final, fiz apenas um estado que seria `jogo_iniciado`. \
+No **4º commit** adicionei a lógica básica do jogo. Ela sofreu apenas pequenas modificações desse ponto até a versão final. 
 ```java        
     ClickListener listener = new ClickListener() {
     @Override
@@ -82,10 +82,19 @@ public void render() {
         palco.getViewport().update(largura, altura);
     }
 ```
-No *5º commit* adicionei imagens reais dos dinossauros que eu selecionei para o jogo, porém não achei que elas combinavam com a estética do jogo e acabei removendo. \
-Nos *commits 6 e 7* fiz a troca das imagens reais por imagens stock de dinossauros que tivessem um estilo mais retrô (8 ou 16 bits), também adicionei ao vetor de strings as perguntas que seriam utilizadas no jogo, além de colocar música e corrigir alguns detalhes como tamanho de fonte e posição de imagens. 
+No **5º commit** adicionei imagens reais dos dinossauros que eu selecionei para o jogo, porém não achei que elas combinavam com a estética do jogo e acabei removendo. \
+Nos **commits 6 e 7** fiz a troca das imagens reais por imagens stock de dinossauros que tivessem um estilo mais retrô (8 ou 16 bits), também adicionei ao vetor de strings as perguntas que seriam utilizadas no jogo, além de colocar música e corrigir alguns detalhes como tamanho de fonte e posição de imagens. \
+Por fim, no **9º commit**, para relacionar mais meu trabalho com os conceitos de POO fiz algumas alterações no projeto com destaque para a adição da classe Pergunta.
 
-## Diagrama UML
+## Link para jogar
+
+![Screenshot](screenshot.png)
+\
+**O jogo está disponível para jogar via web no site itch.io**. [Link do jogo](https://joaohsw.itch.io/dinoz)
+
+## Diagrama de classes
+
+![Diagrama](diagrama.png)
 
 ## Referências
 [Wiki da libGDX](https://libgdx.com/wiki/) \
