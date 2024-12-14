@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 import java.util.Random;
 
@@ -42,6 +43,8 @@ public class Main extends ApplicationAdapter {
     private Texture[] dinos;
     private Music music_background;
     private Pergunta[] perguntas = Pergunta.perguntas;
+    private boolean volume = true;
+    private Texture[] dinos_menu;
 
     @Override
     public void create() {
@@ -56,6 +59,12 @@ public class Main extends ApplicationAdapter {
         dinos = new Texture[] {
             new Texture("dino.png"), new Texture("inimigo.png"), new Texture("dino2.png"),
             new Texture("inimigo2.png"), new Texture("dino3.png"), new Texture("inimigo3.png")
+        };
+
+        dinos_menu = new Texture[] {
+            new Texture("staurikosauruspricei.png"), new Texture("prestosuchuschiniquensis.png"), new Texture("gnathovoraxcabreirai.png"),
+            new Texture("unaysaurustolentinoi.png"), new Texture("saturnaliatupiniquim.png"), new Texture("sacisaurusagudoensis.png"),
+            new Texture("pampadromaeusbarberenai.png"), new Texture("bagual.png"), new Texture("stahleckeriapotens.png")
         };
 
         music_background = Gdx.audio.newMusic(Gdx.files.internal("battlemusic.mp3"));
@@ -98,6 +107,8 @@ public class Main extends ApplicationAdapter {
         TextButton botao_sair = new TextButton("Sair", skin);
         botao_sair.getLabel().setFontScale(4f);
 
+        TextButton botao_volume = new TextButton("Volume: ligado", skin);
+
         botao_jogar.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -113,9 +124,25 @@ public class Main extends ApplicationAdapter {
             }
         });
 
+        botao_volume.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if(volume) {
+                    music_background.setVolume(0);
+                    botao_volume.setText("Volume: desligado");
+                    volume = false;
+                } else {
+                    music_background.setVolume(0.1f);
+                    botao_volume.setText("Volume: ligado");
+                    volume = true;
+                }
+            }
+        });
+
         tabela.add(titulo).padBottom(40).row();
         tabela.add(botao_jogar).fillX().uniformX().padBottom(20).row();
-        tabela.add(botao_sair).fillX().uniformX();
+        tabela.add(botao_sair).fillX().uniformX().padBottom(20).row();
+        tabela.add(botao_volume).fillX().uniformX().padBottom(20).row();
     }
 
     private void criarSelecaoPersonagem() {
@@ -140,6 +167,11 @@ public class Main extends ApplicationAdapter {
         personagem2.getLabel().setFontScale(3f);
         personagem3.getLabel().setFontScale(3f);
 
+        Image imagem1 = new Image(dinos_menu[index1]);
+        Image imagem2 = new Image(dinos_menu[index2]);
+        Image imagem3 = new Image(dinos_menu[index3]);
+        
+
         ClickListener listener = new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -160,10 +192,13 @@ public class Main extends ApplicationAdapter {
         personagem2.addListener(listener);
         personagem3.addListener(listener);
 
-        tabela.add(titulo).padBottom(40).row();
-        tabela.add(personagem1).fillX().uniformX().padBottom(20).row();
-        tabela.add(personagem2).fillX().uniformX().padBottom(20).row();
-        tabela.add(personagem3).fillX().uniformX();
+        tabela.add(titulo).padBottom(40).colspan(2).row();
+        tabela.add(personagem1).padBottom(20).padRight(10);
+        tabela.add(imagem1).padBottom(20).row();
+        tabela.add(personagem2).padBottom(20).padRight(10);
+        tabela.add(imagem2).padBottom(20).row();
+        tabela.add(personagem3).padBottom(20).padRight(10);
+        tabela.add(imagem3).padBottom(20).row();
     }
 
     private void selecionarAdversarios() {
