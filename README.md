@@ -7,7 +7,7 @@ Nesse projeto final da disciplina de paradigmas de programação foi desenvolvid
 
 ## Processo de desenvolvimento
 
-Inicialmente tive certo receio para decidir o tema do meu jogo, pois não queria fazer algo simplório nem tentar fazer demais e me complicar. Acabei chegando na ideia de desenvolver um jogo no estilo "Pokémon" que encaixa bem com a temática dos Geoparques de Caçapava do Sul e da Quarta Colônia. Após o fim do "processo criativo" comecei a testar algumas ideias com a libGDX e logo percebi que seria um processo muito mais agradável do que a experiência que eu tive com a biblioteca de C Allegro. \
+Inicialmente tive certo receio para decidir o tema do meu jogo, pois não queria fazer algo simplório nem tentar fazer demais e me complicar. Acabei chegando na ideia de desenvolver um jogo no estilo "Pokémon" que encaixa bem com a temática dos Geoparques de Caçapava do Sul e da Quarta Colônia. \
 Os **primeiros 2 commits** representam apenas a instalação da libGDX, já no **3º commit** comecei o desenvolvimento do jogo adicionando um menu com botões "Jogar" e "Sair" funcionais, além de adicionar a imagem que viria a ser o plano de fundo do combate do jogo. Nessa primeira versão ao invés de basear o jogo em 5 possíveis estados como é o caso da versão final, fiz apenas um estado que seria `jogo_iniciado`. \
 No **4º commit** adicionei a lógica básica do jogo. Ela sofreu apenas pequenas modificações desse ponto até a versão final. 
 ```java        
